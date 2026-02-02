@@ -1,3 +1,4 @@
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
@@ -108,20 +109,26 @@ public class ScrewtapeInterpreter {
   public Map<Integer, Integer> bracketMap(String program) {
     // TODO: Implement this
     // Hint: use a stack
-    Stack<Character> openings = new Stack<>();
+    Stack<Integer> openings = new Stack<>();
+    Map<Integer, Integer> pairs = new HashMap<>();
 
-    for(char current : program.toCharArray()){
+    for(int i = 0; i < program.length(); i++){
+      char current = program.charAt(i);
       if(current == '['){
-        openings.push('[');
-      } else{
+        openings.push(i);
+      } else if(current == ']'){
         if(openings.empty()){
           throw new IllegalArgumentException("Unmatched brackets");
         } 
-        char lastOpening = openings.pop();
-        if(lastOpening == '[' && current == ']') continue;
+        int lastOpening = openings.pop();
+        pairs.put(i, lastOpening);
       }
     }
-    return null;
+
+    if(!openings.empty()){
+      throw new IllegalArgumentException("Unmatched brackets");
+    }
+    return pairs;
   }
 
   /* for reference 
