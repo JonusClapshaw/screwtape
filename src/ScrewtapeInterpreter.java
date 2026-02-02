@@ -190,7 +190,7 @@ public class ScrewtapeInterpreter {
   public String execute(String program) {
     // TODO: Implement this
     // If you get stuck, you can look at hint.md for a hint
-    List<Integer> output = new ArrayList<>();
+    String output = "";
 
     for(int i = 0; i < program.length(); i++){
       char current = program.charAt(i);
@@ -211,11 +211,20 @@ public class ScrewtapeInterpreter {
           tapePointer.prev = newNode;
           newNode.next = tapePointer;
         }
+        tapeHead = tapePointer.prev;
         tapePointer = tapePointer.prev;
       }
     }
 
-    output = tapePointer.toList();
-    return output.toString();
+    Node newNode = tapeHead;
+
+    while(newNode.prev != null){
+      newNode = newNode.prev;
+    }
+
+    System.out.println(newNode.toList());
+    output = newNode.toString();
+
+    return output;
   }
 }
