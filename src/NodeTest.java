@@ -88,5 +88,38 @@ class NodeTest {
   }
 
   // TODO: Add test for Node with no next or prev
+  @Test 
+  void testListWithNoNextOrPrev(){
+    Node num = new Node(10);
+
+    List<Integer> values = num.toList();
+
+    assertEquals(List.of(10), values);
+  }
   // TODO: Add at least one more test for list constructor that would be useful and cover new ground.
+  @Test
+  void testToListWithThreeValuesEqual(){
+    Node head = new Node(1);
+    Node second = new Node(1);
+    Node third = new Node(1);
+
+    head.next = second;
+    second.prev = head;
+    second.next = third;
+    third.prev = second;
+
+    List<Integer> values = head.toList();
+
+    assertEquals(List.of(1, 1, 1), values);
+  }
+
+  /* No need to test this and check since value is int, cannot be null
+  @Test
+  void testToListWithNullValue(){
+    Node nullHead = new Node(null);
+
+    List<Integer> values = nullHead.toList();
+
+    assertEquals(List.of((Integer) null), values);
+  }*/
 }
