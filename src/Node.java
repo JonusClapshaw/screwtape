@@ -70,6 +70,15 @@ public class Node {
    */
   public List<Integer> toList() {
     // TODO: Implement this
-    return null;
+    // create list of integers 
+    List<Integer> newList = new LinkedList<>();
+    Node current = this;
+    // loop through all node and add value to list
+    while(current != null){
+      newList.add(current.value);
+      current = current.next;
+    }
+    // return created list
+    return newList;
   }
 }
