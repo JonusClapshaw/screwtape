@@ -195,6 +195,8 @@ public class ScrewtapeInterpreter {
       char current = program.charAt(i);
       if(current == '+'){
         tapePointer.value += 1;
+      } else if(current == '-'){
+        tapePointer.value -= 1;
       }
     }
 
