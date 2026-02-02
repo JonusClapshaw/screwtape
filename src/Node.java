@@ -1,3 +1,4 @@
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -21,6 +22,8 @@ public class Node {
    */
   public Node(int value) {
     this.value = value;
+    this.prev = null;
+    this.next = null;
   }
 
   /**
@@ -39,9 +42,27 @@ public class Node {
    */
   public Node(List<Integer> list) {
     // TODO: implement this
+
+    if(list.isEmpty())
+    {
+      throw new IllegalArgumentException("List cannot be empty");
+    }
+
+    this.value = list.get(0);
+    this.next = null;
+    Node current = this;
+
+    for(int i = 1; i < list.size(); i++){
+      Node nextNode = new Node(list.get(i));
+      current.next = nextNode;
+      current.prev = current;
+      current = nextNode;
+    }
+
+    current.next = null;
   }
 
-  /**
+  /** test
    * Converts the linked list starting from this node into a list of integers.
    * Treats this node as the head, even if it has a previous value.
    *
