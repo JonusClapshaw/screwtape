@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -189,7 +190,7 @@ public class ScrewtapeInterpreter {
   public String execute(String program) {
     // TODO: Implement this
     // If you get stuck, you can look at hint.md for a hint
-    Node additionTest = new Node(0);
+    List<Integer> output = new ArrayList<>();
 
     for(int i = 0; i < program.length(); i++){
       char current = program.charAt(i);
@@ -198,17 +199,23 @@ public class ScrewtapeInterpreter {
       } else if(current == '-'){
         tapePointer.value -= 1;
       } else if (current == '>'){
-        Node newNode = new Node(0);
-        tapePointer.next = newNode;
-        newNode.prev = tapePointer;
+        if(tapePointer.next == null){
+          Node newNode = new Node(0);
+          tapePointer.next = newNode;
+          newNode.prev = tapePointer;
+        }
         tapePointer = tapePointer.next;
       } else if (current == '<'){
-        Node newNode = new Node(0);
-        tapePointer.prev = newNode;
-        newNode.next = tapePointer;
+        if(tapePointer.prev == null){
+          Node newNode = new Node(0);
+          tapePointer.prev = newNode;
+          newNode.next = tapePointer;
+        }
         tapePointer = tapePointer.prev;
       }
     }
-    return tapePointer.toString();
+
+    output = tapePointer.toList();
+    return output.toString();
   }
 }
