@@ -1,5 +1,6 @@
 import java.util.List;
 import java.util.Map;
+import java.util.Stack;
 
 /**
  * A Screwtape interpreter that executes programs written in the Screwtape esoteric programming language.
@@ -107,8 +108,58 @@ public class ScrewtapeInterpreter {
   public Map<Integer, Integer> bracketMap(String program) {
     // TODO: Implement this
     // Hint: use a stack
+    Stack<Character> openings = new Stack<>();
+
+    for(char current : program.toCharArray()){
+      if(current == '['){
+        openings.push('[');
+      } else{
+        if(openings.empty()){
+          throw new IllegalArgumentException("Unmatched brackets");
+        } 
+        char lastOpening = openings.pop();
+        if(lastOpening == '[' && current == ']') continue;
+      }
+    }
     return null;
   }
+
+  /* for reference 
+  public boolean isValid(String s) {
+        // stack = []
+        Stack<Character> openings = new Stack<>(); done
+
+        // loop through the string
+        for(char current : s.toCharArray()){
+            // if open
+            if(current == '[' || current == '{' || current == '('){ done
+                // push to stack
+                openings.push(current);
+            } else { // if closeing 
+                //  if stack is empty 
+                //   return false
+                if(openings.empty()) return false;
+
+                //  last opening = stack.pop()
+                char lastOpening = openings.pop();
+
+                if(lastOpening == '(' && current == ')') continue;
+                if(lastOpening == '[' && current == ']') continue;
+                if(lastOpening == '{' && current == '}') continue;
+
+                return false;
+            }
+        }
+        
+        return openings.empty();
+        //  if lastopen does not correspond to current ;
+        //   return false
+        
+        // if stack is empty
+        // return true
+        // else false
+    }
+  */
 
   /**
    * Executes a Screwtape program and returns the output as a string.
