@@ -189,6 +189,15 @@ public class ScrewtapeInterpreter {
   public String execute(String program) {
     // TODO: Implement this
     // If you get stuck, you can look at hint.md for a hint
-    return null;
+    Node additionTest = new Node(0);
+
+    for(int i = 0; i < program.length(); i++){
+      char current = program.charAt(i);
+      if(current == '+'){
+        tapePointer.value += 1;
+      }
+    }
+
+    return tapePointer.toString();
   }
 }
