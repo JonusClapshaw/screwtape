@@ -9,10 +9,10 @@ import java.util.Stack;
  * 
  * Screwtape is a minimalistic language with the following commands:
  * 
- * - `>`: Move the tape pointer to the next memory node.
- * - `<`: Move the tape pointer to the previous memory node.
- * - `+`: Increment the value in the current memory node.
- * - `-`: Decrement the value in the current memory node.
+ * - `>`: Move the tape pointer to the next memory node. IMPLEMENTED
+ * - `<`: Move the tape pointer to the previous memory node. IMPLEMENTED
+ * - `+`: Increment the value in the current memory node. IMPLEMENTED
+ * - `-`: Decrement the value in the current memory node. IMPLEMENTED
  * - `.`: Output the character represented by the value in the current memory node.
  * - `[`: Do nothing
  * - `]`: If the value in the current memory node is not 0, jump back to the matching `[`.
@@ -211,19 +211,27 @@ public class ScrewtapeInterpreter {
           tapePointer.prev = newNode;
           newNode.next = tapePointer;
         }
-        tapeHead = tapePointer.prev;
         tapePointer = tapePointer.prev;
+        tapeHead = tapePointer;
+      } else if(current == '.'){
+        output += (char)(tapePointer.value);
+      } else if(current == '['){
+        //`[`: Do nothing
+      } else if(current == ']'){ // `]`: If the value in the current memory node is not 0, jump back to the matching `[`.
+        if(tapePointer.value != 0){
+          Map<Integer, Integer> looper = bracketMap(program);
+          i = looper.get(i);
+        }
       }
     }
-
-    Node newNode = tapeHead;
+    /*Node newNode = tapeHead; For checking output of '<' 
 
     while(newNode.prev != null){
       newNode = newNode.prev;
     }
 
     System.out.println(newNode.toList());
-    output = newNode.toString();
+    output = newNode.toString();*/
 
     return output;
   }
