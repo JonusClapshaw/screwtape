@@ -122,4 +122,11 @@ class NodeTest {
 
     assertEquals(List.of((Integer) null), values);
   }*/
+
+  @Test
+  void testToListWithNoValues(){
+    List<Integer> values = new ArrayList<>();
+
+    assertEquals(List.of(), values);
+  }
 }
